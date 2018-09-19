@@ -8,7 +8,7 @@ package com.hht.brightness.strategy.change;
  * @time 2018/9/10 10:57
  * @describe
  */
-public abstract class BaseChangeStrategy implements IChangeStrategy {
+public abstract class BaseBrightnessChangeImpl implements IBrightnessChange {
 
     public static final int TYPE_ADD = 0x101;
 

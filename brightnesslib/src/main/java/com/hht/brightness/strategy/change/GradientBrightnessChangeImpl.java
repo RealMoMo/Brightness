@@ -13,13 +13,13 @@ import android.os.Message;
  * @time 2018/9/10 10:49
  * @describe
  */
-public class GradientChangeStrategy extends BaseChangeStrategy {
+public class GradientBrightnessChangeImpl extends BaseBrightnessChangeImpl {
 
     private Handler mHandler;
 
 
 
-    public GradientChangeStrategy(Context context, IChangeBrightness iChangeBrightness){
+    public GradientBrightnessChangeImpl(Context context, IChangeBrightness iChangeBrightness){
         mChangeBrightness = iChangeBrightness;
 
         mHandler = new Handler(context.getMainLooper()){
@@ -51,8 +51,8 @@ public class GradientChangeStrategy extends BaseChangeStrategy {
 
 
     @Override
-    public void changeBrightness(int currentBrightness, int targetBrightness) {
-        currentValue = currentBrightness;
+    public void changeBrightness(int startBrightness, int targetBrightness) {
+        currentValue = startBrightness;
         targetValue = targetBrightness;
 
         type = currentValue > targetValue ? TYPE_MINUS : TYPE_ADD;

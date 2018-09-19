@@ -1,12 +1,12 @@
 package com.hht.brightness.impl;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
-import com.paike.zjc.bright.strategy.change.BaseChangeStrategy;
-import com.paike.zjc.bright.strategy.change.IChangeStrategy;
+import com.hht.brightness.strategy.change.IBrightnessChange;
 
 import java.lang.reflect.Method;
 
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * @time 2018/9/10 9:27
  * @describe
  */
-public class StandardBrightness extends BaseBrightness implements BaseChangeStrategy.IChangeBrightness {
+public class StandardBrightnessImpl extends BaseBrightnessImpl  {
 
     /**
      * Application Context
@@ -31,15 +31,25 @@ public class StandardBrightness extends BaseBrightness implements BaseChangeStra
 
 
 
-    protected StandardBrightness(@NonNull Context context){
-        this(context, IChangeStrategy.Strategy.IMMEDIATELY);
+    protected StandardBrightnessImpl(@NonNull Application application){
+        this(application, IBrightnessChange.Strategy.IMMEDIATELY);
     }
 
-    protected StandardBrightness(@NonNull Context context, IChangeStrategy.Strategy changeStrategyType){
-        mContext = context;
+    protected StandardBrightnessImpl(@NonNull Application application, @NonNull @IBrightnessChange.Strategy int changeStrategyType){
+        mContext = application;
 
         initChangeStrategyImpl(mContext,changeStrategyType,this);
 
+        initBrightness();
+    }
+
+    public StandardBrightnessImpl(@NonNull Application application,@NonNull IBrightnessChange changeStrategy){
+        mContext = application;
+        this.changeStrategy = changeStrategy;
+        initBrightness();
+    }
+
+    private void initBrightness(){
         PowerManager mPowerManager = (PowerManager)mContext.getSystemService(Context.POWER_SERVICE);
         systemMinBrightness = getSystemMinimumScreenBright(mPowerManager);
         brightCoefficient = getBrightCoefficient(systemMinBrightness);
@@ -57,30 +67,30 @@ public class StandardBrightness extends BaseBrightness implements BaseChangeStra
 
     }
 
-    @Override
-    public void setBrightness(int value) {
-
-            if(statusListener !=null){
-                statusListener.changeStarted();
-            }
-            changeStrategy.changeBrightness(getBrightness(),value);
-
-
-
-
-    }
-
-    @Override
-    public void setProtectWritingBrightness() {
-
-            changeStrategy.changeBrightness(getBrightness(),writingBrightness);
-            if(statusListener !=null){
-                statusListener.changeStarted();
-            }
-
-
-
-    }
+//    @Override
+//    public void setBrightness(int value) {
+//
+//
+//            changeStrategy.changeBrightness(getBrightness(),value);
+//        if(statusListener !=null){
+//            statusListener.changeStarted();
+//        }
+//
+//
+//
+//    }
+//
+//    @Override
+//    public void setProtectWritingBrightness() {
+//
+//            changeStrategy.changeBrightness(getBrightness(),writingBrightness);
+//            if(statusListener !=null){
+//                statusListener.changeStarted();
+//            }
+//
+//
+//
+//    }
 
     /**
      * 直接设置亮度

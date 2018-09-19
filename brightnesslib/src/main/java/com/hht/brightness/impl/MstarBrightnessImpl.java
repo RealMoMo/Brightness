@@ -1,12 +1,13 @@
 package com.hht.brightness.impl;
 
-import android.content.Context;
+import android.app.Application;
+import android.support.annotation.NonNull;
 
+import com.hht.brightness.strategy.change.IBrightnessChange;
 import com.mstar.android.tv.TvPictureManager;
 import com.mstar.android.tvapi.common.TvManager;
 import com.mstar.android.tvapi.common.exception.TvCommonException;
-import com.paike.zjc.bright.strategy.change.BaseChangeStrategy;
-import com.paike.zjc.bright.strategy.change.IChangeStrategy;
+
 
 /**
  * @author Realmo
@@ -16,20 +17,24 @@ import com.paike.zjc.bright.strategy.change.IChangeStrategy;
  * @time 2018/9/10 9:27
  * @describe
  */
-public class MstarBrightness extends BaseBrightness implements BaseChangeStrategy.IChangeBrightness {
+public class MstarBrightnessImpl extends BaseBrightnessImpl {
 
 
 
-    protected MstarBrightness(Context context){
-        this(context,IChangeStrategy.Strategy.IMMEDIATELY);
+    protected MstarBrightnessImpl(@NonNull Application application){
+        this(application, IBrightnessChange.Strategy.IMMEDIATELY);
     }
 
 
-    protected MstarBrightness(Context context, IChangeStrategy.Strategy changeStrategyType){
+    protected MstarBrightnessImpl(@NonNull Application application, @NonNull @IBrightnessChange.Strategy int changeStrategyType){
         writingBrightness = PROECT_WRITING_BRIGHTNESS;
-        initChangeStrategyImpl(context,changeStrategyType,this);
+        initChangeStrategyImpl(application,changeStrategyType,this);
 
 
+    }
+
+    public MstarBrightnessImpl(@NonNull IBrightnessChange changeStrategy){
+        this.changeStrategy = changeStrategy;
     }
 
 
@@ -39,27 +44,27 @@ public class MstarBrightness extends BaseBrightness implements BaseChangeStrateg
         return TvPictureManager.getInstance().getBacklight();
     }
 
-    @Override
-    public void setBrightness(int value) {
-
-            if(statusListener !=null){
-                statusListener.changeStarted();
-            }
-            changeStrategy.changeBrightness(getBrightness(), value);
-
-
-    }
-
-    @Override
-    public void setProtectWritingBrightness() {
-
-            changeStrategy.changeBrightness(getBrightness(), writingBrightness);
-            if(statusListener !=null){
-                statusListener.changeStarted();
-            }
-
-
-    }
+//    @Override
+//    public void setBrightness(int value) {
+//
+//
+//            changeStrategy.changeBrightness(getBrightness(), value);
+//        if(statusListener !=null){
+//            statusListener.changeStarted();
+//        }
+//
+//    }
+//
+//    @Override
+//    public void setProtectWritingBrightness() {
+//
+//            changeStrategy.changeBrightness(getBrightness(), writingBrightness);
+//            if(statusListener !=null){
+//                statusListener.changeStarted();
+//            }
+//
+//
+//    }
 
     private void setMstarBrightness(int value){
         try {

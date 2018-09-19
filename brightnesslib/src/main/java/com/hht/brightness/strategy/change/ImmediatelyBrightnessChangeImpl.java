@@ -10,16 +10,16 @@ package com.hht.brightness.strategy.change;
  * @time 2018/9/10 10:48
  * @describe
  */
-public class ImmediatelyChangeStrategy  extends BaseChangeStrategy  {
+public class ImmediatelyBrightnessChangeImpl extends BaseBrightnessChangeImpl {
 
 
-    public ImmediatelyChangeStrategy(IChangeBrightness iChangeBrightness) {
+    public ImmediatelyBrightnessChangeImpl(IChangeBrightness iChangeBrightness) {
         mChangeBrightness = iChangeBrightness;
     }
 
     @Override
-    public void changeBrightness(int currentBrightness, int targetBrightness) {
-            currentValue = currentBrightness;
+    public void changeBrightness(int startBrightness, int targetBrightness) {
+            currentValue = startBrightness;
             targetValue = targetBrightness;
             isAddBrightness = (targetValue > currentValue);
             mChangeBrightness.changeBrightness(targetValue,isAddBrightness,true);

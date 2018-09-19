@@ -1,9 +1,10 @@
 package com.hht.brightness.impl;
 
-import android.content.Context;
+import android.app.Application;
 
-import com.paike.zjc.bright.IBrightness;
-import com.paike.zjc.bright.strategy.change.IChangeStrategy;
+import com.hht.brightness.BrightnessPlatform;
+import com.hht.brightness.strategy.change.IBrightnessChange;
+
 
 /**
  * @author Realmo
@@ -15,15 +16,48 @@ import com.paike.zjc.bright.strategy.change.IChangeStrategy;
  */
 public class BrightnessFactory {
 
-    public static BaseBrightness createBrightnessImpl(Context context, int typeBrightness){
-        BaseBrightness mBrightness = null;
-        switch (typeBrightness){
-            case IBrightness.TYPE_STANDARD:{
-                mBrightness = new StandardBrightness(context);
+//    /**
+//     *
+//     * @param application {@link Application}
+//     * @param typeBrightness {}
+//     * @return
+//     */
+//    public static BaseBrightnessImpl createBrightnessImpl(Application application, int typeBrightness){
+//        BaseBrightnessImpl mBrightness = null;
+//        switch (typeBrightness){
+//            case IBrightness.PLATFORM_STANDARD:{
+//                mBrightness = new StandardBrightnessImpl(application);
+//            }break;
+//            case IBrightness.PLATFORM_MSTAR:
+//            default:{
+//                mBrightness = new MstarBrightnessImpl(application);
+//            }break;
+//        }
+//
+//        return  mBrightness;
+//
+//    }
+
+    /**
+     *
+     * @param application {@link Application}
+     * @param platform {@link BrightnessPlatform}
+     * @return
+     */
+    public static BaseBrightnessImpl createBrightnessImpl(Application application, @BrightnessPlatform int platform){
+        BaseBrightnessImpl mBrightness = null;
+        switch (platform){
+            case BrightnessPlatform.PLATFORM_STANDARD:{
+                mBrightness = new StandardBrightnessImpl(application);
             }break;
-            case IBrightness.TYPE_MSTAR:
+            case BrightnessPlatform.PLATFORM_MSTAR:{
+                mBrightness = new MstarBrightnessImpl(application);
+            }break;
+            case BrightnessPlatform.PLATFORM_OTHER:{
+              throw new IllegalArgumentException("Can not create Custom Platform of BrightnessImpl,You should by builder to newInstance BrightnessImpl");
+            }
             default:{
-                mBrightness = new MstarBrightness(context);
+                mBrightness = new MstarBrightnessImpl(application);
             }break;
         }
 
@@ -31,16 +65,27 @@ public class BrightnessFactory {
 
     }
 
-
-    public static BaseBrightness createBrightnessImpl(Context context, int typeBrightness, IChangeStrategy.Strategy changeStrategy){
-        BaseBrightness mBrightness = null;
-        switch (typeBrightness){
-            case IBrightness.TYPE_STANDARD:{
-                mBrightness = new StandardBrightness(context,changeStrategy);
+    /**
+     *
+     * @param application {@link Application}
+     * @param platform {@link BrightnessPlatform}
+     * @param changeStrategy {@link IBrightnessChange.Strategy}
+     * @return
+     */
+    public static BaseBrightnessImpl createBrightnessImpl(Application application, @BrightnessPlatform int platform, @IBrightnessChange.Strategy int changeStrategy){
+        BaseBrightnessImpl mBrightness = null;
+        switch (platform){
+            case BrightnessPlatform.PLATFORM_STANDARD:{
+                mBrightness = new StandardBrightnessImpl(application,changeStrategy);
             }break;
-            case IBrightness.TYPE_MSTAR:
+            case BrightnessPlatform.PLATFORM_MSTAR:{
+                mBrightness = new MstarBrightnessImpl(application,changeStrategy);
+            }break;
+            case BrightnessPlatform.PLATFORM_OTHER:{
+                throw new IllegalArgumentException("Can not create Custom Platform of BrightnessImpl,You should by builder to newInstance BrightnessImpl");
+            }
             default:{
-                mBrightness = new MstarBrightness(context,changeStrategy);
+                mBrightness = new MstarBrightnessImpl(application,changeStrategy);
             }break;
         }
 

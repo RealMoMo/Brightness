@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.hht.brightness.BrightnessPlatform;
+import com.hht.brightness.i.StatusListener;
 import com.hht.brightness.impl.BaseBrightnessImpl;
 import com.hht.brightness.impl.BrightnessFactory;
 import com.hht.brightness.strategy.change.IBrightnessChange;
@@ -31,14 +32,100 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initBrightness();
+
         initView();
+        initBrightness();
 
     }
 
     private void initBrightness() {
         standardImm = BrightnessFactory.createBrightnessImpl(getApplication(), BrightnessPlatform.PLATFORM_STANDARD, IBrightnessChange.Strategy.IMMEDIATELY);
         standardGra = BrightnessFactory.createBrightnessImpl(getApplication(), BrightnessPlatform.PLATFORM_STANDARD, IBrightnessChange.Strategy.GRADIENT);
+
+        standardImm.setChangeStatusListener(new StatusListener() {
+            @Override
+            public void changeStarted() {
+
+            }
+
+            @Override
+            public void changeSuccessed() {
+
+            }
+
+            @Override
+            public void changeFailed() {
+
+            }
+
+            @Override
+            public void updatingBrightnessValue(int currentBrightness) {
+                sb_standard_imm.setProgress(currentBrightness);
+            }
+
+            @Override
+            public void addBrightnessSuccessed() {
+
+            }
+
+            @Override
+            public void addBrightnessFailed() {
+
+            }
+
+            @Override
+            public void minusBrightnessSuccessed() {
+
+            }
+
+            @Override
+            public void minusBrightnessFailed() {
+
+            }
+        });
+
+
+        standardGra.setChangeStatusListener(new StatusListener() {
+            @Override
+            public void changeStarted() {
+
+            }
+
+            @Override
+            public void changeSuccessed() {
+
+            }
+
+            @Override
+            public void changeFailed() {
+
+            }
+
+            @Override
+            public void updatingBrightnessValue(int currentBrightness) {
+                sb_standard_gra.setProgress(currentBrightness);
+            }
+
+            @Override
+            public void addBrightnessSuccessed() {
+
+            }
+
+            @Override
+            public void addBrightnessFailed() {
+
+            }
+
+            @Override
+            public void minusBrightnessSuccessed() {
+
+            }
+
+            @Override
+            public void minusBrightnessFailed() {
+
+            }
+        });
     }
 
     private void initView() {

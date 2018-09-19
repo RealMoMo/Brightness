@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hht.brightness.lib.test">
 
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.mstar.android.permissionn.ACCESS_TV_DATA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

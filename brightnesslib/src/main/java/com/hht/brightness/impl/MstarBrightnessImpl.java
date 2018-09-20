@@ -44,27 +44,7 @@ public class MstarBrightnessImpl extends BaseBrightnessImpl {
         return TvPictureManager.getInstance().getBacklight();
     }
 
-//    @Override
-//    public void setBrightness(int value) {
-//
-//
-//            changeStrategy.changeBrightness(getBrightness(), value);
-//        if(changeListener !=null){
-//            changeListener.changeStarted();
-//        }
-//
-//    }
-//
-//    @Override
-//    public void setProtectWritingBrightness() {
-//
-//            changeStrategy.changeBrightness(getBrightness(), writingBrightness);
-//            if(changeListener !=null){
-//                changeListener.changeStarted();
-//            }
-//
-//
-//    }
+
 
     private void setMstarBrightness(int value){
         try {

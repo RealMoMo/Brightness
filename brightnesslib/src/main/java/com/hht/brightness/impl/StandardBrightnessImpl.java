@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.hht.brightness.strategy.change.IBrightnessChange;
 
+
 import java.lang.reflect.Method;
 
 /**
@@ -54,6 +55,8 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl {
         systemMinBrightness = getSystemMinimumScreenBright(mPowerManager);
         brightCoefficient = getBrightCoefficient(systemMinBrightness);
         this.writingBrightness = getRealBright(PROECT_WRITING_BRIGHTNESS);
+
+
     }
 
     @Override
@@ -67,30 +70,7 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl {
 
     }
 
-//    @Override
-//    public void setBrightness(int value) {
-//
-//
-//            changeStrategy.changeBrightness(getBrightness(),value);
-//        if(changeListener !=null){
-//            changeListener.changeStarted();
-//        }
-//
-//
-//
-//    }
-//
-//    @Override
-//    public void setProtectWritingBrightness() {
-//
-//            changeStrategy.changeBrightness(getBrightness(),writingBrightness);
-//            if(changeListener !=null){
-//                changeListener.changeStarted();
-//            }
-//
-//
-//
-//    }
+
 
     /**
      * 直接设置亮度
@@ -137,6 +117,22 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl {
             e.printStackTrace();
         }
         return 0;
+    }
+
+
+    private int getSystemMaxBrightness(PowerManager mPowerManager){
+        Class<?> c = null;
+
+        try {
+            c = Class.forName("android.os.PowerManager");
+
+            Method m1 = c.getMethod("getMaximumScreenBrightnessSetting");
+
+            return  (int)(m1.invoke(mPowerManager));
+        }  catch (Exception e){
+            e.printStackTrace();
+        }
+        return 100;
     }
 
     /**

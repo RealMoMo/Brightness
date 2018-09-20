@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * @time 2018/9/10 9:27
  * @describe
  */
-public class StandardBrightnessImpl extends BaseBrightnessImpl  {
+public class StandardBrightnessImpl extends BaseBrightnessImpl {
 
     /**
      * Application Context
@@ -72,8 +72,8 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl  {
 //
 //
 //            changeStrategy.changeBrightness(getBrightness(),value);
-//        if(statusListener !=null){
-//            statusListener.changeStarted();
+//        if(changeListener !=null){
+//            changeListener.changeStarted();
 //        }
 //
 //
@@ -84,8 +84,8 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl  {
 //    public void setProtectWritingBrightness() {
 //
 //            changeStrategy.changeBrightness(getBrightness(),writingBrightness);
-//            if(statusListener !=null){
-//                statusListener.changeStarted();
+//            if(changeListener !=null){
+//                changeListener.changeStarted();
 //            }
 //
 //
@@ -98,12 +98,9 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl  {
      */
     @Override
     public void forceChangeBrightness(int targetBrightness) {
-        isFinish = true;
-        changeStrategy.stopChangeBrightness();
+        super.forceChangeBrightness(targetBrightness);
         setStandardBrightness(targetBrightness);
-        if(statusListener !=null){
-            statusListener.changeStarted();
-        }
+
 
     }
 

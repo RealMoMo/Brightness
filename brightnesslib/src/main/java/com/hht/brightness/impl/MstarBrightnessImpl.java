@@ -49,8 +49,8 @@ public class MstarBrightnessImpl extends BaseBrightnessImpl {
 //
 //
 //            changeStrategy.changeBrightness(getBrightness(), value);
-//        if(statusListener !=null){
-//            statusListener.changeStarted();
+//        if(changeListener !=null){
+//            changeListener.changeStarted();
 //        }
 //
 //    }
@@ -59,8 +59,8 @@ public class MstarBrightnessImpl extends BaseBrightnessImpl {
 //    public void setProtectWritingBrightness() {
 //
 //            changeStrategy.changeBrightness(getBrightness(), writingBrightness);
-//            if(statusListener !=null){
-//                statusListener.changeStarted();
+//            if(changeListener !=null){
+//                changeListener.changeStarted();
 //            }
 //
 //
@@ -77,12 +77,9 @@ public class MstarBrightnessImpl extends BaseBrightnessImpl {
 
     @Override
     public void forceChangeBrightness(int targetBrightness) {
-        isFinish = true;
-        changeStrategy.stopChangeBrightness();
+        super.forceChangeBrightness(targetBrightness);
         setMstarBrightness(targetBrightness);
-        if(statusListener !=null){
-            statusListener.changeStarted();
-        }
+
     }
 
     @Override

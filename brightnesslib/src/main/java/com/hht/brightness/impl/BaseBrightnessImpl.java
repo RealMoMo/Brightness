@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.hht.brightness.BrightnessConfig;
 import com.hht.brightness.IBrightness;
-import com.hht.brightness.i.StatusListener;
+import com.hht.brightness.i.ChangeListener;
 import com.hht.brightness.strategy.change.BaseBrightnessChangeImpl;
 import com.hht.brightness.strategy.change.GradientBrightnessChangeImpl;
 import com.hht.brightness.strategy.change.IBrightnessChange;
@@ -23,9 +23,14 @@ import com.hht.brightness.strategy.change.ImmediatelyBrightnessChangeImpl;
  * @describe
  */
 public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessChangeImpl.IChangeBrightness {
-
+    /**
+     * 护眼亮度 {@link IBrightness {@link #PROECT_WRITING_BRIGHTNESS}}
+     */
     protected int writingBrightness;
 
+    /**
+     * {@link IBrightnessChange}
+     */
     protected IBrightnessChange changeStrategy;
 
     /**
@@ -33,8 +38,14 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
      */
     protected int changeStrategyType;
 
-    protected StatusListener statusListener;
+    /**
+     * 亮度变化监听{@link ChangeListener}
+     */
+    protected ChangeListener changeListener;
 
+    /**
+     * 是否完成变化的标志
+     */
     protected  boolean isFinish = true;
 
     /**
@@ -46,27 +57,34 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
      */
     private boolean isRecoverBrightness = false;
 
+    /**
+     * 设置亮度
+     * @param value 亮度值
+     */
     @CallSuper
     @Override
     public void setBrightness(int value) {
 
 
         changeStrategy.changeBrightness(getBrightness(),value);
-        if(statusListener !=null){
-            statusListener.changeStarted();
+        if(changeListener !=null){
+            changeListener.changeStarted();
         }
 
 
 
     }
 
+    /**
+     * 设置为护眼亮度
+     */
     @CallSuper
     @Override
     public void setProtectWritingBrightness() {
 
         changeStrategy.changeBrightness(getBrightness(),writingBrightness);
-        if(statusListener !=null){
-            statusListener.changeStarted();
+        if(changeListener !=null){
+            changeListener.changeStarted();
         }
 
 
@@ -74,7 +92,10 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
     }
 
 
-
+    /**
+     * 获取护眼亮度
+     * @return 护眼亮度
+     */
     @Override
     public int getProtectWritingBrightness() {
         return writingBrightness;
@@ -87,9 +108,13 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
 
     }
 
+    /**
+     * 设置亮度变化监听
+     * @param changeChangeListener {@link ChangeListener} or 空实现的 {@link com.hht.brightness.i.CustomChangeListener }
+     */
     @Override
-    public void setChangeStatusListener(StatusListener changeStatusListener) {
-        statusListener = changeStatusListener;
+    public void setChangeStatusListener(ChangeListener changeChangeListener) {
+        changeListener = changeChangeListener;
     }
 
     @Override
@@ -97,10 +122,23 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         this.changeStrategyType = changeStrategyType;
     }
 
+    /**
+     * 强制改变亮度且不会带亮度改变策略效果，而子类子类只需负责设置对应平台的亮度即可
+     * @param targetBrightness  目标亮度
+     */
+    @CallSuper
+    @Override
+    public void forceChangeBrightness(int targetBrightness) {
+        isFinish = true;
+        changeStrategy.stopChangeBrightness();
+        if(changeListener !=null){
+            changeListener.changeStarted();
+        }
+    }
 
-
-
-
+    /**
+     * 回收资源
+     */
     @Override
     public void recycleVar() {
         if(changeStrategy != null){
@@ -122,7 +160,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
 
 
     protected void updateStatus(int value,boolean isAddBrightness,boolean finish){
-        if(statusListener == null){
+        if(changeListener == null){
             //亮度设置完毕
             if(finish){
                 isRecoverBrightness = false;
@@ -140,41 +178,41 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         if(finish){
             isRecoverBrightness = false;
             isChanging = false;
+            changeListener.updatingBrightnessValue(value);
             if(isAddBrightness){
-                statusListener.addBrightnessSuccessed();
+                changeListener.addBrightnessSuccessed();
             }else{
-                statusListener.minusBrightnessSuccessed();
+                changeListener.minusBrightnessSuccessed();
             }
         }
         //亮度设置仍在更新
         else{
             isChanging = true;
             isRecoverBrightness = isAddBrightness;
-            statusListener.updatingBrightnessValue(value);
+            changeListener.updatingBrightnessValue(value);
         }
     }
 
-
+    /**
+     *
+     * @return {@link #isChanging}
+     */
     public boolean isChanging() {
         return isChanging;
     }
 
-    public void setChanging(boolean changing) {
-        isChanging = changing;
-    }
-
+    /**
+     *
+     * @return {@link #isRecoverBrightness}
+     */
     public boolean isRecoverBrightness() {
         return isRecoverBrightness;
     }
 
-    public void setRecoverBrightness(boolean recoverBrightness) {
-        isRecoverBrightness = recoverBrightness;
-    }
 
-
-
-
-
+    /**
+     * 亮度构建者Build
+     */
     public static class Build{
 
         private BrightnessConfig brightnessConfig;

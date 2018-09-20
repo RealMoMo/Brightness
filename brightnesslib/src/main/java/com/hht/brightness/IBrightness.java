@@ -1,7 +1,7 @@
 package com.hht.brightness;
 
 
-import com.hht.brightness.i.StatusListener;
+import com.hht.brightness.i.ChangeListener;
 import com.hht.brightness.strategy.change.IBrightnessChange;
 
 /**
@@ -73,9 +73,9 @@ public interface IBrightness {
 
     /**
      * 设置亮度状态监听。
-     * @param changeStatusListener
+     * @param changeChangeListener
      */
-    void setChangeStatusListener(StatusListener changeStatusListener);
+    void setChangeStatusListener(ChangeListener changeChangeListener);
 
 
     /**

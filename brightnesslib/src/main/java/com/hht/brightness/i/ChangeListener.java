@@ -8,7 +8,7 @@ package com.hht.brightness.i;
  * @time 2018/9/10 15:12
  * @describe
  */
-public interface StatusListener {
+public interface ChangeListener {
 
     void changeStarted();
 

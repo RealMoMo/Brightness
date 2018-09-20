@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  * @name OEM_WhiteBoard
  * @email momo.weiye@gmail.com
  * @time 2018/9/10 10:45
- * @describe 亮度变化
+ * @describe 亮度变化接口
  */
 public interface IBrightnessChange {
     /**

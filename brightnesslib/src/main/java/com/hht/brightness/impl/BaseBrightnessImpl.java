@@ -52,10 +52,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
      * 亮度是否正在改变的标记
      */
     private boolean isChanging = false;
-    /**
-     * 亮度是否正在恢复初始值的标记
-     */
-    private boolean isRecoverBrightness = false;
+
 
     /**
      * 设置亮度
@@ -163,20 +160,20 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         if(changeListener == null){
             //亮度设置完毕
             if(finish){
-                isRecoverBrightness = false;
+
                 isChanging = false;
             }
             //亮度设置仍在更新
             else{
                 isChanging = true;
-                isRecoverBrightness = isAddBrightness;
+
             }
             return;
         }
 
         //亮度设置完毕
         if(finish){
-            isRecoverBrightness = false;
+
             isChanging = false;
             changeListener.updatingBrightnessValue(value);
             if(isAddBrightness){
@@ -188,7 +185,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         //亮度设置仍在更新
         else{
             isChanging = true;
-            isRecoverBrightness = isAddBrightness;
+
             changeListener.updatingBrightnessValue(value);
         }
     }
@@ -201,13 +198,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         return isChanging;
     }
 
-    /**
-     *
-     * @return {@link #isRecoverBrightness}
-     */
-    public boolean isRecoverBrightness() {
-        return isRecoverBrightness;
-    }
+
 
 
     /**

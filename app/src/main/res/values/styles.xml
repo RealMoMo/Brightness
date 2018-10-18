@@ -22,7 +22,7 @@
     </style>
 
     <style name="btn_style">
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">50dp</item>
     </style>
 

@@ -6,23 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button2"
-        style="@style/btn_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="type1"
-        app:layout_constraintBottom_toBottomOf="@+id/sb_standard_imm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sb_standard_imm"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+    <!--standard-->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_standard_imm"
         style="@style/tv_style"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -36,24 +23,24 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_standard_imm" />
 
 
     <Button
-        android:id="@+id/btn1"
+        android:id="@+id/btn_standard_imm"
         style="@style/btn_style"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="type1"
+        android:text="Random Effect"
         app:layout_constraintBottom_toBottomOf="@+id/sb_standard_imm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sb_standard_imm"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/tv_standard_imm" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_standard_gra"
         style="@style/tv_style"
         android:layout_marginStart="8dp"
         android:text="Standard + Gradient"
@@ -66,18 +53,78 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_standard_gra" />
 
     <Button
-        android:id="@+id/btn2"
+        android:id="@+id/btn_standard_gra"
         style="@style/btn_style"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="type2"
+        android:text="Random Effect"
         app:layout_constraintBottom_toBottomOf="@+id/sb_standard_gra"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/tv_standard_gra"
         app:layout_constraintTop_toBottomOf="@+id/sb_standard_imm" />
+
+
+    <!--mstar -->
+
+    <TextView
+        android:id="@+id/tv_mstar_imm"
+        style="@style/tv_style"
+        android:layout_marginStart="8dp"
+        android:text="Mstar + Immediately"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sb_standard_gra" />
+
+    <SeekBar
+        android:id="@+id/sb_mstar_imm"
+        style="@style/sb_style"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mstar_imm" />
+
+
+    <Button
+        android:id="@+id/btn_mstar_imm"
+        style="@style/btn_style"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Random Effect"
+        app:layout_constraintBottom_toTopOf="@+id/tv_mstar_gra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sb_mstar_imm"
+        app:layout_constraintTop_toBottomOf="@+id/sb_standard_gra" />
+
+    <TextView
+        android:id="@+id/tv_mstar_gra"
+        style="@style/tv_style"
+        android:layout_marginStart="8dp"
+        android:text="Mstar + Gradient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sb_mstar_imm" />
+
+    <SeekBar
+        android:id="@+id/sb_mstar_gra"
+        style="@style/sb_style"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mstar_gra" />
+
+    <Button
+        android:id="@+id/btn_mstar_gra"
+        style="@style/btn_style"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Random Effect"
+        app:layout_constraintBottom_toBottomOf="@+id/sb_mstar_gra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sb_mstar_gra"
+        app:layout_constraintTop_toBottomOf="@+id/sb_mstar_imm" />
 
 </android.support.constraint.ConstraintLayout>

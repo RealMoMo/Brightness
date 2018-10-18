@@ -28,13 +28,24 @@ import java.util.Random;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
+    //standard
     private SeekBar sb_standard_imm;
     private SeekBar sb_standard_gra;
 
-    private Button btn1,btn2;
+    private Button btn_standard_imm,btn_standard_gra;
 
     private BaseBrightnessImpl standardImm;
     private BaseBrightnessImpl standardGra;
+
+    //mstar
+    private SeekBar sb_mstar_imm;
+    private SeekBar sb_mstar_gra;
+
+    private Button btn_mstar_imm,btn_mstar_gra;
+
+    private BaseBrightnessImpl mstarImm;
+    private BaseBrightnessImpl mstarGra;
+
 
     private boolean hasWriteSettingPermission = false;
 
@@ -62,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initView() {
-
+        //standard
         sb_standard_imm = findViewById(R.id.sb_standard_imm);
         sb_standard_gra  = findViewById(R.id.sb_standard_gra);
 
@@ -70,10 +81,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sb_standard_gra.setOnSeekBarChangeListener(this);
 
 
-        btn1 = findViewById(R.id.btn1);
-        btn2 = findViewById(R.id.btn2);
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
+        btn_standard_imm = findViewById(R.id.btn_standard_imm);
+        btn_standard_gra = findViewById(R.id.btn_standard_gra);
+        btn_standard_imm.setOnClickListener(this);
+        btn_standard_gra.setOnClickListener(this);
+
+        //mstar
+        sb_mstar_imm = findViewById(R.id.sb_mstar_imm);
+        sb_mstar_gra = findViewById(R.id.sb_mstar_gra);
+
+         sb_mstar_imm.setOnSeekBarChangeListener(this);
+        sb_standard_gra.setOnSeekBarChangeListener(this);
+
+        btn_mstar_imm = findViewById(R.id.btn_mstar_imm);
+        btn_mstar_gra = findViewById(R.id.btn_mstar_gra);
+        btn_mstar_imm.setOnClickListener(this);
+        btn_mstar_gra.setOnClickListener(this);
 
     }
 
@@ -101,6 +124,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         });
+
+        mstarImm = BrightnessFactory.createBrightnessImpl(getApplication(), BrightnessPlatform.PLATFORM_MSTAR, IBrightnessChange.Strategy.IMMEDIATELY);
+        mstarGra = BrightnessFactory.createBrightnessImpl(getApplication(), BrightnessPlatform.PLATFORM_MSTAR, IBrightnessChange.Strategy.GRADIENT);
+
+        mstarImm.setChangeStatusListener(new CustomChangeListener(){
+            @Override
+            public void updatingBrightnessValue(int currentBrightness) {
+                sb_mstar_imm.setProgress(currentBrightness);
+            }
+        });
+
+        mstarGra.setChangeStatusListener(new CustomChangeListener(){
+            @Override
+            public void updatingBrightnessValue(int currentBrightness) {
+                sb_mstar_gra.setProgress(currentBrightness);
+            }
+        });
     }
 
 
@@ -110,11 +150,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_SETTINGS},REQUEST_CODE);
         }
         switch (v.getId()){
-            case R.id.btn1:{
+            case R.id.btn_standard_imm:{
                 standardImm.setBrightness(new Random().nextInt(255));
             }break;
-            case R.id.btn2:{
+            case R.id.btn_standard_gra:{
                 standardGra.setBrightness(new Random().nextInt(255));
+            }break;
+            case R.id.btn_mstar_imm:{
+                mstarImm.setBrightness(new Random().nextInt(100));
+            }break;
+            case R.id.btn_mstar_gra:{
+                mstarGra.setBrightness(new Random().nextInt(100));
             }break;
             default:{
                 //do nothing
@@ -128,7 +174,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             standardImm.forceChangeBrightness(progress);
         }else if(seekBar == sb_standard_gra){
             standardGra.forceChangeBrightness(progress);
+        }else if(seekBar == sb_mstar_imm){
+            mstarImm.forceChangeBrightness(progress);
+        }else if(seekBar == sb_mstar_gra){
+            mstarGra.forceChangeBrightness(progress);
         }
+
     }
 
     @Override

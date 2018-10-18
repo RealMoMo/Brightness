@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SeekBar sb_standard_imm;
     private SeekBar sb_standard_gra;
 
-    private Button btn_standard_imm,btn_standard_gra;
+    private Button btn_standard_imm, btn_standard_gra;
 
     private BaseBrightnessImpl standardImm;
     private BaseBrightnessImpl standardGra;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SeekBar sb_mstar_imm;
     private SeekBar sb_mstar_gra;
 
-    private Button btn_mstar_imm,btn_mstar_gra;
+    private Button btn_mstar_imm, btn_mstar_gra;
 
     private BaseBrightnessImpl mstarImm;
     private BaseBrightnessImpl mstarGra;
@@ -58,12 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //ActivityCompat兼容库 不需特意判断版本号再权限检测
-        if(ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_SETTINGS) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
             hasWriteSettingPermission = true;
-        }else{
+        } else {
             hasWriteSettingPermission = false;
         }
-        DefaultLogger.debug(null,"hasWriteSettingPermission:"+hasWriteSettingPermission);
+        DefaultLogger.debug(null, "hasWriteSettingPermission:" + hasWriteSettingPermission);
 
         initView();
         initBrightness();
@@ -71,11 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void initView() {
         //standard
         sb_standard_imm = findViewById(R.id.sb_standard_imm);
-        sb_standard_gra  = findViewById(R.id.sb_standard_gra);
+        sb_standard_gra = findViewById(R.id.sb_standard_gra);
 
         sb_standard_imm.setOnSeekBarChangeListener(this);
         sb_standard_gra.setOnSeekBarChangeListener(this);
@@ -90,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sb_mstar_imm = findViewById(R.id.sb_mstar_imm);
         sb_mstar_gra = findViewById(R.id.sb_mstar_gra);
 
-         sb_mstar_imm.setOnSeekBarChangeListener(this);
-        sb_standard_gra.setOnSeekBarChangeListener(this);
+        sb_mstar_imm.setOnSeekBarChangeListener(this);
+        sb_mstar_gra.setOnSeekBarChangeListener(this);
 
         btn_mstar_imm = findViewById(R.id.btn_mstar_imm);
         btn_mstar_gra = findViewById(R.id.btn_mstar_gra);
@@ -128,14 +127,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mstarImm = BrightnessFactory.createBrightnessImpl(getApplication(), BrightnessPlatform.PLATFORM_MSTAR, IBrightnessChange.Strategy.IMMEDIATELY);
         mstarGra = BrightnessFactory.createBrightnessImpl(getApplication(), BrightnessPlatform.PLATFORM_MSTAR, IBrightnessChange.Strategy.GRADIENT);
 
-        mstarImm.setChangeStatusListener(new CustomChangeListener(){
+        mstarImm.setChangeStatusListener(new CustomChangeListener() {
             @Override
             public void updatingBrightnessValue(int currentBrightness) {
                 sb_mstar_imm.setProgress(currentBrightness);
             }
         });
 
-        mstarGra.setChangeStatusListener(new CustomChangeListener(){
+        mstarGra.setChangeStatusListener(new CustomChangeListener() {
             @Override
             public void updatingBrightnessValue(int currentBrightness) {
                 sb_mstar_gra.setProgress(currentBrightness);
@@ -146,37 +145,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(!hasWriteSettingPermission){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_SETTINGS},REQUEST_CODE);
+        if (!hasWriteSettingPermission) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_SETTINGS}, REQUEST_CODE);
         }
-        switch (v.getId()){
-            case R.id.btn_standard_imm:{
+        switch (v.getId()) {
+            case R.id.btn_standard_imm: {
                 standardImm.setBrightness(new Random().nextInt(255));
-            }break;
-            case R.id.btn_standard_gra:{
+            }
+            break;
+            case R.id.btn_standard_gra: {
                 standardGra.setBrightness(new Random().nextInt(255));
-            }break;
-            case R.id.btn_mstar_imm:{
+            }
+            break;
+            case R.id.btn_mstar_imm: {
                 mstarImm.setBrightness(new Random().nextInt(100));
-            }break;
-            case R.id.btn_mstar_gra:{
+            }
+            break;
+            case R.id.btn_mstar_gra: {
                 mstarGra.setBrightness(new Random().nextInt(100));
-            }break;
-            default:{
+            }
+            break;
+            default: {
                 //do nothing
-            }break;
+            }
+            break;
         }
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if(seekBar == sb_standard_imm){
+        if (seekBar == sb_standard_imm) {
             standardImm.forceChangeBrightness(progress);
-        }else if(seekBar == sb_standard_gra){
+        } else if (seekBar == sb_standard_gra) {
             standardGra.forceChangeBrightness(progress);
-        }else if(seekBar == sb_mstar_imm){
+        } else if (seekBar == sb_mstar_imm) {
             mstarImm.forceChangeBrightness(progress);
-        }else if(seekBar == sb_mstar_gra){
+        } else if (seekBar == sb_mstar_gra) {
             mstarGra.forceChangeBrightness(progress);
         }
 
@@ -196,10 +200,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if (requestCode == REQUEST_CODE){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-               hasWriteSettingPermission = true;
-            }else{
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                hasWriteSettingPermission = true;
+            } else {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_SETTINGS)) {
                     new AlertDialog.Builder(this)
                             .setMessage("Need writing setting permissions")

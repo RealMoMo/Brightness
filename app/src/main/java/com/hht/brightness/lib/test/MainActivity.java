@@ -174,15 +174,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (seekBar == sb_standard_imm) {
-            standardImm.forceChangeBrightness(progress);
-        } else if (seekBar == sb_standard_gra) {
-            standardGra.forceChangeBrightness(progress);
-        } else if (seekBar == sb_mstar_imm) {
-            mstarImm.forceChangeBrightness(progress);
-        } else if (seekBar == sb_mstar_gra) {
-            mstarGra.forceChangeBrightness(progress);
+        if(fromUser){
+            if (seekBar == sb_standard_imm) {
+                standardImm.forceChangeBrightness(progress);
+            } else if (seekBar == sb_standard_gra) {
+                standardGra.forceChangeBrightness(progress);
+            } else if (seekBar == sb_mstar_imm) {
+                mstarImm.forceChangeBrightness(progress);
+            } else if (seekBar == sb_mstar_gra) {
+                mstarGra.forceChangeBrightness(progress);
+            }
         }
+
 
     }
 

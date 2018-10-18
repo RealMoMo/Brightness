@@ -20,6 +20,6 @@ public @interface BrightnessPlatform{
     int PLATFORM_STANDARD = 0;
     //Mstar平台
     int PLATFORM_MSTAR = 1;
-    //自定义平台(海思等)
+    //自定义平台(海思等)  最好还是直接适配到Android平台
     int PLATFORM_OTHER = 2;
 }

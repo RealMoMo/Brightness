@@ -53,10 +53,16 @@ public interface IBrightness {
 //    void stopAndRecoverBrightness();
 
     /**
-     * 强制改变亮度且不带改变亮度策略，直接设置生效(会中断当前亮度改变)
+     * 同步强制改变亮度且不带改变亮度策略，直接设置生效(会中断当前亮度改变)
      * @param targetBrightness
      */
     void forceChangeBrightness(int targetBrightness);
+
+    /**
+     * 异步强制改变亮度且不带改变亮度策略，直接设置生效(会中断当前亮度改变)
+     * @param targetBrightness
+     */
+    void forceChangeBrightnessAsync(int targetBrightness);
 
     /**
      *

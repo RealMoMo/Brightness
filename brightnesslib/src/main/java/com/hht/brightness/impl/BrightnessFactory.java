@@ -16,27 +16,7 @@ import com.hht.brightness.strategy.change.IBrightnessChange;
  */
 public class BrightnessFactory {
 
-//    /**
-//     *
-//     * @param application {@link Application}
-//     * @param typeBrightness {}
-//     * @return
-//     */
-//    public static BaseBrightnessImpl createBrightnessImpl(Application application, int typeBrightness){
-//        BaseBrightnessImpl mBrightness = null;
-//        switch (typeBrightness){
-//            case IBrightness.PLATFORM_STANDARD:{
-//                mBrightness = new StandardBrightnessImpl(application);
-//            }break;
-//            case IBrightness.PLATFORM_MSTAR:
-//            default:{
-//                mBrightness = new MstarBrightnessImpl(application);
-//            }break;
-//        }
-//
-//        return  mBrightness;
-//
-//    }
+
 
     /**
      *

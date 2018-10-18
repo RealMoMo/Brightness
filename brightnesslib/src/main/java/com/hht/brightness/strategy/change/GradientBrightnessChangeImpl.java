@@ -16,7 +16,10 @@ import android.os.Message;
 public class GradientBrightnessChangeImpl extends BaseBrightnessChangeImpl {
 
     private Handler mHandler;
-
+    /**
+     * 更新亮度的间隔时间
+     */
+    private  long intervalMillisecond = 0;
 
 
     public GradientBrightnessChangeImpl(Context context, IChangeBrightness iChangeBrightness){
@@ -44,11 +47,27 @@ public class GradientBrightnessChangeImpl extends BaseBrightnessChangeImpl {
                     }break;
                 }
                 mChangeBrightness.changeBrightness(currentValue,isAddBrightness,false);
-                this.sendEmptyMessage(msg.what);
+                this.sendEmptyMessageDelayed(msg.what,intervalMillisecond);
             }
         };
     }
 
+
+    /**
+     *
+     * @return 更新亮度的间隔时间
+     */
+    public long getIntervalMillisecond() {
+        return intervalMillisecond;
+    }
+
+    /**
+     *
+     * @param intervalMillisecond 设置更新亮度的间隔毫秒数
+     */
+    public void setIntervalMillisecond(long intervalMillisecond) {
+        this.intervalMillisecond = intervalMillisecond;
+    }
 
     @Override
     public void changeBrightness(int startBrightness, int targetBrightness) {

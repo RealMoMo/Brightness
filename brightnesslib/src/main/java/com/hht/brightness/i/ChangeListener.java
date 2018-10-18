@@ -14,45 +14,52 @@ public interface ChangeListener {
 
     /**
      *
-     * @return 亮度变化设置成功
+     *  亮度变化设置成功
      */
     void changeSuccessed();
 
     /**
      *
-     * @return 亮度变化设置失败
+     *  亮度变化设置失败
      */
     void changeFailed();
 
     /**
      *
-     * @return 亮度变化更新
+     *  亮度变化更新
+     *  @param currentBrightness 当前更新到的亮度
      */
     void updatingBrightnessValue(int currentBrightness);
 
     /**
      *
-     * @return 增加亮度变化设置成功
+     *  增加亮度变化设置成功
      */
     void addBrightnessSuccessed();
 
     /**
      *
-     * @return 增加亮度变化设置失败
+     *  增加亮度变化设置失败
      */
     void addBrightnessFailed();
 
     /**
      *
-     * @return 减少亮度变化设置成功
+     *  减少亮度变化设置成功
      */
     void minusBrightnessSuccessed();
 
     /**
      *
-     * @return 减少亮度变化设置成功
+     *  减少亮度变化设置成功
      */
     void minusBrightnessFailed();
+
+    /**
+     * 强制改变亮度
+     * @param targetBrightness 目标亮度
+     */
+    void forceChange(int targetBrightness);
 
 
 }

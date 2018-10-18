@@ -10,9 +10,9 @@ package com.hht.brightness.strategy.change;
  */
 public abstract class BaseBrightnessChangeImpl implements IBrightnessChange {
 
-    public static final int TYPE_ADD = 0x101;
+    protected static final int TYPE_ADD = 0x101;
 
-    public static final int TYPE_MINUS = 0x102;
+    protected static final int TYPE_MINUS = 0x102;
     /**
      *
      */

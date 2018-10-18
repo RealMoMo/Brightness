@@ -6,7 +6,7 @@ package com.hht.brightness.i;
  * @name OEM_WhiteBoard
  * @email momo.weiye@gmail.com
  * @time 2018/9/20 9:55
- * @describe
+ * @describe 空实现ChangeListener，供按需重写方法
  */
 public class CustomChangeListener implements ChangeListener {
     @Override
@@ -46,6 +46,11 @@ public class CustomChangeListener implements ChangeListener {
 
     @Override
     public void minusBrightnessFailed() {
+
+    }
+
+    @Override
+    public void forceChange(int targetBrightness) {
 
     }
 }

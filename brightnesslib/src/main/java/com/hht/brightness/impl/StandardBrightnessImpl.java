@@ -21,11 +21,6 @@ import java.lang.reflect.Method;
  */
 public class StandardBrightnessImpl extends BaseBrightnessImpl {
 
-    /**
-     * Application Context
-     */
-    private Context mContext;
-
 
     private int systemMinBrightness;
     private float brightCoefficient = 1f;

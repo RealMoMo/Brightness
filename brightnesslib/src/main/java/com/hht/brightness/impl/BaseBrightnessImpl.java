@@ -23,6 +23,11 @@ import com.hht.brightness.strategy.change.ImmediatelyBrightnessChangeImpl;
  * @describe
  */
 public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessChangeImpl.IChangeBrightness {
+
+    /**
+     * Application Context
+     */
+    protected Context mContext;
     /**
      * 护眼亮度 {@link IBrightness {@link #PROECT_WRITING_BRIGHTNESS}}
      */
@@ -129,7 +134,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         isFinish = true;
         changeStrategy.stopChangeBrightness();
         if(changeListener !=null){
-            changeListener.changeStarted();
+            changeListener.forceChange(targetBrightness);
         }
     }
 

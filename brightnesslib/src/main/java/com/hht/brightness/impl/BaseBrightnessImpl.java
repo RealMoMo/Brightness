@@ -15,8 +15,6 @@ import com.hht.brightness.strategy.change.IBrightnessChange;
 import com.hht.brightness.strategy.change.ImmediatelyBrightnessChangeImpl;
 import com.hht.brightness.thread.DefaultPoolExecutor;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 
 /**
  * @author Realmo
@@ -67,6 +65,11 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
      */
     private boolean isChanging = false;
 
+    /**
+     * 亮度是否正在恢复的标记
+     */
+    private boolean isRecovering = false;
+
     protected static DefaultPoolExecutor mThreadPool;
 
     static {
@@ -91,6 +94,18 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         }
 
 
+
+    }
+
+    /**
+     * 设置亮度
+     * @param value 亮度值
+     * @param isRecover 是否为恢复亮度标识
+     */
+    @Override
+    public void setBrightness(int value, boolean isRecover) {
+        this.setBrightness(value);
+        isRecovering = isRecover;
 
     }
 
@@ -193,7 +208,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
         if(changeListener == null){
             //亮度设置完毕
             if(finish){
-
+                isRecovering = false;
                 isChanging = false;
             }
             //亮度设置仍在更新
@@ -206,7 +221,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
 
         //亮度设置完毕
         if(finish){
-
+            isRecovering = false;
             isChanging = false;
             changeListener.updatingBrightnessValue(value);
             if(isAddBrightness){
@@ -232,6 +247,13 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
     }
 
 
+    /**
+     *
+     * @return {@link #isRecovering}
+     */
+    public boolean isRecoveringBrightness() {
+        return isRecovering;
+    }
 
 
     /**

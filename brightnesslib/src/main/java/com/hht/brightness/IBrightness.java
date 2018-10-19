@@ -32,6 +32,12 @@ public interface IBrightness {
     void setBrightness(int value);
 
     /**
+     * 设置亮度
+     * @param value  亮度值
+     * @param isRecover 是否为恢复亮度标识
+     */
+    void setBrightness(int value,boolean isRecover);
+    /**
      * 设置亮度为护眼书写亮度
      */
     void setProtectWritingBrightness();

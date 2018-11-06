@@ -49,6 +49,7 @@ public class MstarBrightnessImpl extends BaseBrightnessImpl {
 
     @Override
     public void setBrightness(int value) {
+        isChanging = true;
         if (isFinish) {
             changeStrategy.changeBrightness(getBrightness(), value);
         } else {

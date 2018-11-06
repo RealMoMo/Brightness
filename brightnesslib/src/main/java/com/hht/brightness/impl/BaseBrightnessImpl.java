@@ -63,7 +63,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
     /**
      * 亮度是否正在改变的标记
      */
-    private boolean isChanging = false;
+    protected boolean isChanging = false;
 
     /**
      * 亮度是否正在恢复的标记
@@ -87,7 +87,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
     @Override
     public void setBrightness(int value) {
 
-
+        isChanging = true;
         changeStrategy.changeBrightness(getBrightness(),value);
         if(changeListener !=null){
             changeListener.changeStarted();

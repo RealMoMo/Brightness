@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
-import android.util.Log;
+
 
 import com.hht.brightness.BrightnessConfig;
 import com.hht.brightness.IBrightness;
@@ -74,7 +74,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
 
     static {
         mThreadPool = DefaultPoolExecutor.getInstance();
-        Log.d("realmo","static init");
+
     }
 
 
@@ -163,6 +163,8 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
     @Override
     public void forceChangeBrightness(int targetBrightness) {
         isFinish = true;
+        isChanging = false;
+        isRecovering = false;
         changeStrategy.stopChangeBrightness();
         if(changeListener !=null){
             changeListener.forceChange(targetBrightness);

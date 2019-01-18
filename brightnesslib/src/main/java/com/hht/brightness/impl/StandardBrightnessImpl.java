@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import com.hht.brightness.strategy.change.IBrightnessChange;
 
-
 import java.lang.reflect.Method;
 
 /**
@@ -22,8 +21,8 @@ import java.lang.reflect.Method;
 public class StandardBrightnessImpl extends BaseBrightnessImpl {
 
 
-    private int systemMinBrightness;
-    private float brightCoefficient = 1f;
+//    private int systemMinBrightness;
+//    private float brightCoefficient = 1f;
 
 
 
@@ -36,23 +35,22 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl {
 
         initChangeStrategyImpl(mContext,changeStrategyType,this);
 
-        initBrightness();
+        //initBrightness();
     }
 
     public StandardBrightnessImpl(@NonNull Application application,@NonNull IBrightnessChange changeStrategy){
         mContext = application;
         this.changeStrategy = changeStrategy;
-        initBrightness();
+        //initBrightness();
     }
 
-    private void initBrightness(){
-        PowerManager mPowerManager = (PowerManager)mContext.getSystemService(Context.POWER_SERVICE);
-        systemMinBrightness = getSystemMinimumScreenBright(mPowerManager);
-        brightCoefficient = getBrightCoefficient(systemMinBrightness);
-        this.writingBrightness = getRealBright(PROECT_WRITING_BRIGHTNESS);
-
-
-    }
+//    private void initBrightness(){
+//        PowerManager mPowerManager = (PowerManager)mContext.getSystemService(Context.POWER_SERVICE);
+//        systemMinBrightness = getSystemMinimumScreenBright(mPowerManager);
+//        brightCoefficient = getBrightCoefficient(systemMinBrightness);
+//        this.writingBrightness = getRealBright(PROECT_WRITING_BRIGHTNESS);
+//
+//    }
 
     @Override
     public int getBrightness() {
@@ -139,23 +137,23 @@ public class StandardBrightnessImpl extends BaseBrightnessImpl {
         return (100f-b)/100;
     }
 
-    /**
-     *
-     * @param fakeBright
-     * @return   system brightness range: 100 - systemMinBrightness
-     */
-    private int getRealBright(int fakeBright){
-        return (int)(brightCoefficient*fakeBright)+ systemMinBrightness;
-    }
-
-    /**
-     *
-     * @param realBright
-     * @return  brightness range: 100 - 0
-     */
-    private int getFakeBright(int realBright){
-        return (int)((realBright- systemMinBrightness)/brightCoefficient);
-    }
+//    /**
+//     *
+//     * @param fakeBright
+//     * @return   system brightness range: 100 - systemMinBrightness
+//     */
+//    private int getRealBright(int fakeBright){
+//        return (int)(brightCoefficient*fakeBright)+ systemMinBrightness;
+//    }
+//
+//    /**
+//     *
+//     * @param realBright
+//     * @return  brightness range: 100 - 0
+//     */
+//    private int getFakeBright(int realBright){
+//        return (int)((realBright- systemMinBrightness)/brightCoefficient);
+//    }
 
 
 }

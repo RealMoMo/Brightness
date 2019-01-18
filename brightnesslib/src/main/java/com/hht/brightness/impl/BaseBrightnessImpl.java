@@ -33,7 +33,7 @@ public abstract class BaseBrightnessImpl implements IBrightness,BaseBrightnessCh
     /**
      * 护眼亮度 {@link IBrightness {@link #PROECT_WRITING_BRIGHTNESS}}
      */
-    protected int writingBrightness;
+    protected int writingBrightness = PROECT_WRITING_BRIGHTNESS;
 
     /**
      * 更新中的当前亮度

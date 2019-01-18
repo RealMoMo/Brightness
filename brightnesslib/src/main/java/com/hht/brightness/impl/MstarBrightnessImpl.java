@@ -31,7 +31,6 @@ public class MstarBrightnessImpl extends BaseBrightnessImpl {
 
     protected MstarBrightnessImpl(@NonNull Application application, @NonNull @IBrightnessChange.Strategy int changeStrategyType) {
         mContext = application;
-        writingBrightness = PROECT_WRITING_BRIGHTNESS;
         initChangeStrategyImpl(application, changeStrategyType, this);
         saveBrightRunnable = new MstarSaveBrightRunnable(application);
 

@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 7
-        versionName "1.2.3"
+        versionName "1.2.31"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
